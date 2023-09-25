@@ -1,0 +1,1 @@
+sudo cp ~/Training/React/asdf/index.html /var/www/html/index.html

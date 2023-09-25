@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>title</title>
+        <script src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <script src="https://unpkg.com/prop-types/prop-types.js"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script type="text/babel">
+        function ComBtn({text, fontSize, changeHandle})
+        {
+            console.log(text, "render");
+            return (
+                <button 
+                    onClick={changeHandle}
+                    style={{
+                        backgroundColor: "tomato",
+                        color: "white",
+                        padding: "10px 20px",
+                        border: 0,
+                        borderRadius: 5,
+                        fontSize: fontSize ? fontSize : 16,
+                }}>{text}</button>
+            );
+        }
+        const MemorizedBtn = React.memo(ComBtn);
+        ComBtn.propTypes = {
+            text: PropTypes.string.isRequired,
+            fontSize: PropTypes.number,
+            changeHandle: PropTypes.func,
+        }
+        function App()
+        {
+            const [value, setValue] = React.useState("Save Changes");
+            const changeValue = () => setValue("Revert Changes");
+            return (
+                <div>
+                    <MemorizedBtn text={value} changeHandle={changeValue} />
+                    <MemorizedBtn text="Comfirm" fontSize={18} />
+                </div>
+            );
+        }
+        const root = document.getElementById("root");
+        ReactDOM.render(<App />, root);
+    </script>
+</html>

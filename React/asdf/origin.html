@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <span>Total Clicks: 0</span>
+        <button id="btn">Click Me</button>
+    </body>
+    <script>
+        let counter = 0;
+        window.onload = function(){
+            counter = Number(localStorage.getItem('counter'));
+            const span = document.querySelector('span');
+            span.innerText = `Total Clicks: ${counter}`;
+        }
+        const button = document.getElementById('btn');
+        const span = document.querySelector('span');
+        function handleClick() {
+            counter++;
+            span.innerText = `Total Clicks: ${counter}`;
+        }
+        button.addEventListener("click", handleClick);
+        window.addEventListener('beforeunload', (event) => {
+            localStorage.setItem('counter', counter);
+        });
+    </script>
+</html>
